@@ -1,0 +1,84 @@
+buildscript {
+    repositories {
+      jcenter()
+    }
+    //https://github.com/OpenAPITools/openapi-generator (Allows OpenAPI 3 parsing)
+    dependencies {
+        classpath "org.openapitools:openapi-generator-gradle-plugin:3.3.1"
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:2.0.5.RELEASE"
+    }
+}
+
+repositories {
+  jcenter()
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'info.usmans.blog'
+version = '0.0.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+bootJar.enabled = false
+
+configurations {
+    compile.exclude module: "spring-boot-starter-tomcat"
+}
+
+dependencies {
+
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-undertow'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
+    implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310'
+
+    implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+    implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+    implementation group: 'io.springfox', name: 'springfox-bean-validators', version: '2.9.2'
+    implementation group: 'org.webjars', name: 'swagger-ui', version: '3.19.0'
+
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
+
+
+    testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.1.0'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.1.0'
+    testRuntime group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.1.0'
+
+}
+
+springBoot {
+    mainClassName = "info.usmans.blog.Application"
+    buildInfo()
+}
+
+//copy all runtime configurations and libraries to exploded/lib folder
+task copyToLib(type: Copy) {
+    from configurations.runtimeClasspath
+    into "$buildDir/exploded/libs"
+
+}
+
+build.dependsOn copyToLib
+
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+}
+
+compileTestJava {
+  options.encoding = 'UTF-8'
+  options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+}
+
+//enable junit 5 (default is junit)
+test {
+    useJUnitPlatform()
+    testLogging.showStandardStreams = true
+    failFast = true
+}
