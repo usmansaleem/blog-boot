@@ -41,5 +41,12 @@ jobs:
     # run tests!
     - run: ./gradlew clean build
 
+    # Deploy to scaleway
+    - add_ssh_keys:
+        fingerprints:
+          - "1f:75:78:e8:e8:7e:07:75:c9:0e:f7:2b:06:8a:3d:35"
+    - run: ssh-keyscan 212.47.242.14 >> ~/.ssh/known_hosts
+    - run: scp ./build/libs/blog-boot-0.0.0-SNAPSHOT.jar root@212.47.242.14:./upload/
+
 
 
