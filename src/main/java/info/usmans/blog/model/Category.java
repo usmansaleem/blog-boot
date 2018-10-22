@@ -2,6 +2,7 @@ package info.usmans.blog.model;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class Category {
     private int id;
@@ -47,5 +48,13 @@ public class Category {
         .append(id)
         .append(name)
         .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+        .append("id", id)
+        .append("name", name)
+        .toString();
     }
 }

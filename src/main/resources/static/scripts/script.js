@@ -44,38 +44,25 @@ blogApp.controller('mainCtrl', ['$scope', '$http', '$log', '$sce',function($scop
       };
 
     //function to get updated blog count, specially when section changes
-    $scope.getBlogCount = function() {
-       $http.get('rest/blog/blogCount').then(function(response) {
-                      $scope.bigTotalItems = response.data;
-                      $scope.pageChanged(1);
-           });
-    };
-
-    //function to get highestPage
-    $scope.getHighestPage = function() {
-        $http.get('rest/blog/highestPage').then(function(response) {
-            $scope.lastPage =  response.data;
-            $scope.getBlogCount()
-        });
+    $scope.getBlogMeta =  function() {
+      $http.get('rest/blog/blogMeta').then(function(response) {
+        $scope.blogMeta =  response.data;
+        $scope.lastPage = $scope.blogMeta.pageCount;
+        $scope.pageChanged(1);
+      });
     };
 
     //function to show jumbotron
     $scope.showJumbotron = function() {
-        return $scope.bigCurrentPage == 1
+        return $scope.bigCurrentPage === 1
     };
 
-    //for custom pagination
-    $scope.getNumber = function(num) {
-        return new Array(num);
-    }
-
     $scope.pageClass = 'page-home';
-    $scope.maxSize = 5;
     $scope.bigCurrentPage = 1;
     $scope.lastPage = 1;
 
     //call method chain ...
-    $scope.getHighestPage();
+    $scope.getBlogMeta();
     
 }]);
 

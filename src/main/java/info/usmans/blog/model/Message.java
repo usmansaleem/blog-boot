@@ -2,6 +2,7 @@ package info.usmans.blog.model;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class Message {
     private String message;
@@ -36,5 +37,12 @@ public class Message {
         return new HashCodeBuilder(17, 37)
         .append(message)
         .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+        .append("message", message)
+        .toString();
     }
 }

@@ -1,6 +1,9 @@
 package info.usmans.blog.model;
 
 import java.util.List;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class BlogItem {
     public static final int BLOG_ITEMS_PER_PAGE = 10;
@@ -112,5 +115,69 @@ public class BlogItem {
 
     public void setCategories(List<Category> categories) {
         this.categories = categories;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        BlogItem blogItem = (BlogItem) o;
+
+        return new EqualsBuilder()
+        .append(id, blogItem.id)
+        .append(urlFriendlyId, blogItem.urlFriendlyId)
+        .append(title, blogItem.title)
+        .append(description, blogItem.description)
+        .append(body, blogItem.body)
+        .append(blogSection, blogItem.blogSection)
+        .append(createdOn, blogItem.createdOn)
+        .append(modifiedOn, blogItem.modifiedOn)
+        .append(createDay, blogItem.createDay)
+        .append(createMonth, blogItem.createMonth)
+        .append(createYear, blogItem.createYear)
+        .append(categories, blogItem.categories)
+        .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+        .append(id)
+        .append(urlFriendlyId)
+        .append(title)
+        .append(description)
+        .append(body)
+        .append(blogSection)
+        .append(createdOn)
+        .append(modifiedOn)
+        .append(createDay)
+        .append(createMonth)
+        .append(createYear)
+        .append(categories)
+        .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+        .append("id", id)
+        .append("urlFriendlyId", urlFriendlyId)
+        .append("title", title)
+        .append("description", description)
+        .append("body", body)
+        .append("blogSection", blogSection)
+        .append("createdOn", createdOn)
+        .append("modifiedOn", modifiedOn)
+        .append("createDay", createDay)
+        .append("createMonth", createMonth)
+        .append("createYear", createYear)
+        .append("categories", categories)
+        .toString();
     }
 }
