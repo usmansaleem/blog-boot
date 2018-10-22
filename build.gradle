@@ -26,6 +26,7 @@ targetCompatibility = 1.8
 
 bootJar {
   enabled = true
+  archivesBaseName = "blog-boot"
   launchScript()
 }
 
