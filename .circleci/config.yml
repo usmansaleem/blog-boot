@@ -45,9 +45,12 @@ jobs:
     - add_ssh_keys:
         fingerprints:
           - "1f:75:78:e8:e8:7e:07:75:c9:0e:f7:2b:06:8a:3d:35"
-    - run: ssh-keyscan $SSH_HOST >> ~/.ssh/known_hosts
-    - run: sudo apt install rsync
-    - run: rsync -azvh ./build/libs/blog-boot-0.0.0-SNAPSHOT.jar $SSH_USER@$SSH_PASSWORD:./upload/
-
-
-
+    - deploy:
+        name: deploy master
+        command: |
+          if [ "${CIRCLE_BRANCH}" == "master" ]; then
+            ssh-keyscan $SSH_HOST >> ~/.ssh/known_hosts
+            sudo apt install rsync
+            rsync -azvh ./build/libs/blog-boot-0.0.0-SNAPSHOT.jar $SSH_USER@$SSH_HOST:./upload/
+          fi
+          
