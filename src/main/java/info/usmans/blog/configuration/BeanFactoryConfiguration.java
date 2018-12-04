@@ -3,7 +3,6 @@ package info.usmans.blog.configuration;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import info.usmans.blog.model.BlogItem;
-import io.undertow.Undertow.Builder;
 import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
@@ -24,18 +23,11 @@ public class BeanFactoryConfiguration {
     private static final int BLOG_ITEMS_PER_PAGE = 10;
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
-    //start additional listener at 8080
+    //start additional listener at 8080 (default one is starting on 8443 via application.yaml)
     @Bean
     public UndertowServletWebServerFactory servletWebServerFactory() {
         UndertowServletWebServerFactory factory = new UndertowServletWebServerFactory();
-        factory.addBuilderCustomizers(new UndertowBuilderCustomizer() {
-
-            @Override
-            public void customize(Builder builder) {
-                builder.addHttpListener(8080, "0.0.0.0");
-            }
-
-        });
+        factory.addBuilderCustomizers((UndertowBuilderCustomizer) builder -> builder.addHttpListener(8080, "0.0.0.0"));
         return factory;
     }
 
@@ -87,7 +79,7 @@ public class BeanFactoryConfiguration {
             //update indexes
             startIdx = endIdx;
             endIdx += BLOG_ITEMS_PER_PAGE;
-            if(endIdx > blogItemsSize) {
+            if (endIdx > blogItemsSize) {
                 endIdx = blogItemsSize;
             }
         }

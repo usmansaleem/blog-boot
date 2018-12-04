@@ -4,7 +4,7 @@ buildscript {
     }
 
     dependencies {
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:2.0.6.RELEASE"
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:2.1.1.RELEASE"
     }
 }
 
@@ -47,9 +47,9 @@ dependencies {
 
 
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test'
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.1.0'
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.1.0'
-    testRuntime group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.1.0'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.3.2'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.3.2'
+    testRuntime group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.3.2'
 
 }
 
@@ -57,15 +57,6 @@ springBoot {
     mainClassName = "info.usmans.blog.Application"
     buildInfo()
 }
-
-//copy all runtime configurations and libraries to exploded/lib folder
-task copyToLib(type: Copy) {
-    from configurations.runtimeClasspath
-    into "$buildDir/exploded/libs"
-
-}
-
-build.dependsOn copyToLib
 
 compileJava {
     options.encoding = 'UTF-8'

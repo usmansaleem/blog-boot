@@ -13,5 +13,6 @@ server:
   port: 8443
   ssl:
     key-store-type: PKCS12
+    # This keystore contains SSL cert for domain and needs to be placed side by side of the jar
     key-store: file:./usmans.info.pfx
 
