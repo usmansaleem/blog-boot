@@ -4,7 +4,7 @@ buildscript {
     }
 
     dependencies {
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:2.1.1.RELEASE"
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:2.1.2.RELEASE"
     }
 }
 
@@ -26,7 +26,7 @@ targetCompatibility = 1.8
 bootJar {
   enabled = true
   archivesBaseName = "blog-boot"
-  launchScript()
+  launchScript() //allows systemd or init script launching of fat jar
 }
 
 configurations {

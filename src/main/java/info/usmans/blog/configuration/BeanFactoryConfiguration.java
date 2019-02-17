@@ -10,8 +10,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import org.springframework.boot.web.embedded.undertow.UndertowBuilderCustomizer;
-import org.springframework.boot.web.embedded.undertow.UndertowServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -22,14 +20,6 @@ public class BeanFactoryConfiguration {
     private static final String JSON_DATA_PATH = "/data.json";
     private static final int BLOG_ITEMS_PER_PAGE = 10;
     private static final ObjectMapper objectMapper = new ObjectMapper();
-
-    //start additional listener at 8080 (default one is starting on 8443 via application.yaml)
-    @Bean
-    public UndertowServletWebServerFactory servletWebServerFactory() {
-        UndertowServletWebServerFactory factory = new UndertowServletWebServerFactory();
-        factory.addBuilderCustomizers((UndertowBuilderCustomizer) builder -> builder.addHttpListener(8080, "0.0.0.0"));
-        return factory;
-    }
 
     @Bean
     List<BlogItem> loadBlogItems() throws IOException {
