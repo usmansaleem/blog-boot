@@ -19,11 +19,14 @@
 - apt update upgrade
 - apt install openjdk-11-jdk-headless
 - Add system user: 
-    `adduser --system --no-create-home --group bootapp`
-    `mkdir /var/blogboot`
-    `chown bootapp:bootapp /var/blogboot`
+  -   `adduser --system --no-create-home --group bootapp`
+  -   `mkdir /var/blogboot`
+  -   `chown bootapp:bootapp /var/blogboot`
 - Systemd Configuration. See https://gist.github.com/usmansaleem/ba4a228f6626bfcf01e96f5323705714
 - nginx Reverse Proxy Configuration.
+  - `apt-get install nginx`
+  - See https://gist.github.com/usmansaleem/3b4097b3298505c10011905beddc0f56
+  - Create symlink in sites-enabled
 - certbot SSL Configuration.
 - iptable restrictions
 
