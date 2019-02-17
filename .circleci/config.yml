@@ -51,7 +51,7 @@ jobs:
           if [ "${CIRCLE_BRANCH}" == "master" ]; then
             ssh-keyscan $SSH_HOST >> ~/.ssh/known_hosts
             sudo apt install rsync
-            rsync -azvh ./build/libs/blog-boot-0.0.0-SNAPSHOT.jar $SSH_USER@$SSH_HOST:./upload/
-            ssh $SSH_USER@$SSH_HOST "systemctl stop blogboot ; cp ./upload/blog-boot-0.0.0-SNAPSHOT.jar /var/blogboot/ ; chown bootapp:bootapp /var/blogboot/blog-boot-0.0.0-SNAPSHOT.jar ; systemctl start blogboot"
+            rsync -azvh ./build/libs/blog-boot-0.0.0-SNAPSHOT.jar $SSH_USER@$SSH_HOST:/var/blogboot/upload/
+            ssh $SSH_USER@$SSH_HOST "systemctl stop blogboot ; cp /var/blogboot/upload/blog-boot-0.0.0-SNAPSHOT.jar /var/blogboot/ ; chown bootapp:bootapp /var/blogboot/blog-boot-0.0.0-SNAPSHOT.jar ; systemctl start blogboot"
           fi
 
