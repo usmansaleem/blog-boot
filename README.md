@@ -1,6 +1,8 @@
 #Uzi Blog 
 
-**Technologies**: Spring Boot 2, Bootstrap 4, AngularJS
+Rest backend for custom Blogging frontend.
+
+**Technologies**: Spring Boot 2
 
 **CI**: CircleCI. 
 
@@ -28,6 +30,7 @@
   - See https://gist.github.com/usmansaleem/3b4097b3298505c10011905beddc0f56
   - Create symlink in sites-enabled
 - certbot SSL Configuration.
+  - https://certbot.eff.org/lets-encrypt/ubuntubionic-nginx
 - iptable restrictions
 
 See this project in action at: https://usmans.info/
