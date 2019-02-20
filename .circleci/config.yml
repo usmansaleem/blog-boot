@@ -6,8 +6,8 @@ version: 2
 jobs:
   build:
     docker:
-    # specify the version you desire here
-    - image: circleci/openjdk:8-jdk
+      # specify the version you desire here
+      - image: circleci/openjdk:11.0.1-jdk
 
     # Specify service dependencies here if necessary
     # CircleCI maintains a library of pre-built images
@@ -22,7 +22,7 @@ jobs:
       TERM: dumb
 
     steps:
-    - checkout
+      - checkout
 
     # Download and cache dependencies
     - restore_cache:
@@ -52,6 +52,6 @@ jobs:
             ssh-keyscan $SSH_HOST >> ~/.ssh/known_hosts
             sudo apt install rsync
             rsync -azvh ./build/libs/blog-boot-0.0.0-SNAPSHOT.jar $SSH_USER@$SSH_HOST:/var/blogboot/upload/
-            ssh $SSH_USER@$SSH_HOST "systemctl stop blogboot ; cp /var/blogboot/upload/blog-boot-0.0.0-SNAPSHOT.jar /var/blogboot/ ; chown bootapp:bootapp /var/blogboot/blog-boot-0.0.0-SNAPSHOT.jar ; systemctl start blogboot"
+            ssh $SSH_USER@$SSH_HOST "systemctl stop blogboot ; cp /var/blogboot/upload/blog-boot-0.0.0-SNAPSHOT.jar /var/blogboot/ ; chown bootapp:bootapp /var/blogboot/blog-boot-0.0.0-SNAPSHOT.jar ; systemctl start blogboot ; systemctl status --no-pager blogboot"
           fi
 
