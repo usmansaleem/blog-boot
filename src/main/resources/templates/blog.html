@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>{{blogItem.title}}</title>
+    <title th:text="${{blogItem.title}}"></title>
 
     <!-- inline our custom styles -->
     <style>
@@ -141,29 +141,30 @@
     <div class="media">
         <div class="mr-3">
             <div class="date">
-                <span class="day">{{blogItem.createDay}}</span>
-                <span class="month">{{blogItem.createMonth}}</span>
-                <span class="year">{{blogItem.createYear}}</span>
+                <span class="day" th:text="${{blogItem.createDay}}"></span>
+                <span class="month" th:text="${{blogItem.createMonth}}"></span>
+                <span class="year" th:text="${{blogItem.createYear}}"></span>
             </div>
         </div>
 
         <div class="media-body">
-            <h1 class="mt-0">{{blogItem.title}}</h1>
-            {{#each blogItem.categories}}
-            <span class="badge badge-secondary">{{this.name}}</span>
-            {{/each}}
-            <div>{{{blogItem.body}}}</div>
-            <div class="float-sm-right last-modified">Last Modified On: {{blogItem.modifiedOn}}</div>
+            <h1 class="mt-0" th:text="${{blogItem.title}}"></h1>
+            <th:block th:each="category : ${blogItem.categories}">
+              <span class="badge badge-secondary" th:text="${{category.name}}"></span>
+            </th:block>
+            <div th:utext="${{blogItem.body}}"></div>
+            <div class="float-sm-right last-modified">Last Modified On: <span th:text="${{blogItem.modifiedOn}}"></span></div>
         </div>
     </div>
     <span class="fb-left">
-                        <div class="fb-like" data-href="https://usmans.info/blog/{{blogItem.id}}"
+                        <div class="fb-like" data-href="https://usmans.info/blog/" th:attrappend="data-href=${blogItem.id}"
                              data-layout="button_count" data-action="recommend" data-size="small"
                              data-show-faces="false"
                              data-share="true"></div>
-                    </span>
-    <div class="fb-comments" data-href="https://usmans.info/blog/{{blogItem.id}}" data-numposts="5"
-         data-colorscheme="light" width="100%"></div>
+    </span>
+    <div class="fb-comments" data-href="https://usmans.info/blog/" th:attrappend="data-href=${blogItem.id}" data-numposts="5"
+       data-colorscheme="light" width="100%"></div>
+
 </div>
 <div>
     <script>
@@ -180,7 +181,7 @@
     <gcse:searchresults-only></gcse:searchresults-only>
 </div>
 <footer class="footer">
-    <div class="container-fluid small text-muted">(c) Usman Saleem. 2005-2018. Version 5.0</div>
+    <div class="container-fluid small text-muted">(c) Usman Saleem. 2005-2019. Version 5.1</div>
 </footer>
 
 <!-- Bootstrap 4 and JQuery -->

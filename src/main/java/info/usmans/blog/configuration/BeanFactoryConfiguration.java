@@ -19,10 +19,9 @@ public class BeanFactoryConfiguration {
     private static final TypeReference<?> BLOG_LIST_TYPE_REFERENCE = new BlogListTypeReference();
     private static final String JSON_DATA_PATH = "/data.json";
     private static final int BLOG_ITEMS_PER_PAGE = 10;
-    private static final ObjectMapper objectMapper = new ObjectMapper();
 
     @Bean
-    List<BlogItem> loadBlogItems() throws IOException {
+    List<BlogItem> loadBlogItems(ObjectMapper objectMapper) throws IOException {
         return objectMapper
         .readValue(getClass().getResource(JSON_DATA_PATH), BLOG_LIST_TYPE_REFERENCE);
     }
